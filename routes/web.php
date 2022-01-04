@@ -18,3 +18,4 @@ Route::get('/', function () {
 });
 //laikam kkas sanaca ar commitu !!!! 23
 //pienemsim ka sapratu
+/// 4tais meginajums
