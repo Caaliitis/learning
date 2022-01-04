@@ -13,8 +13,8 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
                     <h2>{{$post->title}}</h2>
+                        <p>Author: {{$post->user->name}}</p>
 
                     <p>Published At: {{date('Y-m-d', strtotime($post->published_at))}}</p>
                     <br>

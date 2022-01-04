@@ -13,19 +13,17 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-///tests2222
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 Auth::routes();
-/// push test 2222
-Route::get('/home', [App\Http\Controllers\PostController::class, 'index'])->name('home');
-Route::get('post/create', [App\Http\Controllers\PostController::class, 'create']);
-Route::post('post', [App\Http\Controllers\PostController::class, 'store']);
-Route::get('post/{post}/edit', [App\Http\Controllers\PostController::class, 'edit']);
-Route::get('post/{post}', [App\Http\Controllers\PostController::class, 'show']);
-Route::put('post/{post}', [App\Http\Controllers\PostController::class, 'update']);
-Route::delete('post/{post}', [App\Http\Controllers\PostController::class, 'destroy']);
-//6meginajums
-//7tais
+
+Route::get('post', [App\Http\Controllers\PostController::class, 'index'])->name('post.list');
+Route::get('post/create', [App\Http\Controllers\PostController::class, 'create'])->name('post.create.view');
+Route::post('post', [App\Http\Controllers\PostController::class, 'store'])->name('post.create.form');
+Route::get('post/{post}/edit', [App\Http\Controllers\PostController::class, 'edit'])->name('post.edit.view');
+Route::post('post/{post}/edit', [App\Http\Controllers\PostController::class, 'update'])->name('post.edit.form');
+Route::get('post/{post}', [App\Http\Controllers\PostController::class, 'show'])->name('post.get.view');
+Route::post('post/{post}/delete', [App\Http\Controllers\PostController::class, 'destroy'])->name('post.delete');
