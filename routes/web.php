@@ -17,3 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 //laikam kkas sanaca ar commitu !!!! 23
+//pienemsim ka sapratu
