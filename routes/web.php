@@ -16,4 +16,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-//laikam kkas sanaca ar commitu !!!!
+//laikam kkas sanaca ar commitu !!!! 23
