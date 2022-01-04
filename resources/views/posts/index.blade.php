@@ -26,13 +26,13 @@
                         <td>
                         <a href="post/{{$post->id}}" class="btn btn-primary">Show</a>
                         <a href="post/{{$post->id}}/edit" class="btn btn-primary">Edit</a>
-                        <form action="post/{{$post->id}}" method="post" class="d-inline">
-                            {{ csrf_field() }}
-                            @method('DELETE')
+                        <form action="{{route('post.delete',['post'=>$post])}}" method="post" class="d-inline">
+                            @csrf
+                            @method('POST')
                             <button class="btn btn-danger" type="submit">Delete</button>
                         </form>
                         </td>
-                    </tr>                            
+                    </tr>
                     @endforeach
                 </tbody>
             </table>

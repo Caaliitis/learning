@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\PostStoreRequest;
 use App\Models\Post;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -19,19 +20,10 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-    public function store(Request $request)
+    public function store(PostStoreRequest $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'body' => 'required',
-        ]);
-        
-        $post = new Post();
-        $post->title = $request->title;
-        $post->body = $request->body;
-        $post->published_at = $request->published_at;
-        $post->save();
-        return redirect('/home')->with('success','Post created sucessfully!');
+        $post = Post::create($request->input('title'),$request->input('body'),$request->user());
+        return redirect(route('post.get.view',['post' => $post->post_id]))->with('success','Post created successfully!');
     }
 
     public function show(Post $post)
@@ -44,22 +36,21 @@ class PostController extends Controller
         return view('posts.edit',compact('post'));
     }
 
-    public function update(Post $post, Request $request)
+    public function update(Post $post, PostStoreRequest $request)
     {
-        $request->validate([
-            'title'=>'title',
-            'body'=>'body',
-        ]);
-        $post->title = $request->title;
-        $post->body = $request->body;
-        $post->published_at = $request->published_at;
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
         $post->save();
-        return redirect('/home')->with('success','Post update sucessfully !');
+        return redirect(route('post.get.view',['post' => $post]))->with('success','Post created successfully!');
     }
 
-    public function destroy(Post $post)
+    public function destroy(Post $post,Request $request)
     {
+        if ($request->user()->id !== $post->user_id) {
+            return redirect(route('post.list'))->with('error','Post does not exist !');
+        }
+
         $post->delete();
-        return redirect('/home')->with('success','Post has been deleted !');
+        return redirect(route('post.list'))->with('success','Post has been deleted !');
     }
 }

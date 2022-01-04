@@ -13,10 +13,9 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    
-                    <form action="/post/{{$post->id}}">
+
+                    <form action="{{route('post.edit.form',['post' => $post])}}" method="POST">
                         @csrf
-                        @method('PUT')
                         <div class="form-group">
                             <label for="">Post Title</label>
                             <input type="text" name="title" class="form-control" value="{{$post->title}}">
@@ -27,14 +26,9 @@
                             <textarea name="body" id="" cols="30" rows="10" class="form-control">{{$post->body}}</textarea>
                         </div>
 
-                        <div class="form-group">
-                            <label for="">Publish At</label>
-                            <input type="date" name="published_at" class="form-control" value="{{ date('Y-m-d', strtotime($post->published_at)) }}">
-                        </div>
-                        
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
-                    
+
                 </div>
             </div>
         </div>
